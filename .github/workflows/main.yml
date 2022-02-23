@@ -16,11 +16,14 @@ jobs:
           npm install
 
       - name: Build
-        run: npm run build  # React ビルド
+        run: |
+          cd src
+          npm run build
 
       - name: Deploy  # S3にデプロイ 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
+          cd src
           aws s3 cp --recursive --region ap-northeast-1 build s3://full-empty-bucket
