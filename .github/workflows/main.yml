@@ -10,6 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master  # リポジトリをチェックアウト
 
+      - name: Change Dir
+        run: cd src
+
       - name: Install Dependencies
         run: npm install
 
