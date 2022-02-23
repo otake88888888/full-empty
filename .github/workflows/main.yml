@@ -10,11 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main  # リポジトリをチェックアウト
 
-      - name: Change Dir
-        run: cd src
-
       - name: Install Dependencies
-        run: npm install
+        run: |
+          cd src
+          npm install
 
       - name: Build
         run: npm run build  # React ビルド
