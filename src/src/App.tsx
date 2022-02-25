@@ -1,8 +1,25 @@
+
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import config from './amp-config.json'
 
-function App() {
+Amplify.configure({
+  Auth: {
+    identityPoolId: config.identityPoolId,
+    region: config.region,
+    userPoolId: config.userPoolId,
+    userPoolWebClientId: config.userPoolWebClientId
+  }
+});
+
+const currentConfig = Auth.configure();
+//@ts-ignore
+function App({ signOut, user }) {
   return (
     <div className="App">
       <header className="App-header">
@@ -10,6 +27,8 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <h1>Hello {user.username}</h1>
+        <button onClick={signOut}>Sign out</button>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -22,5 +41,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default withAuthenticator(App);
