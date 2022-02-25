@@ -15,17 +15,17 @@ jobs:
           cd src
           npm install
 
-      - name: Build
-        run: |
-          cd src
-          npm run build
-          
       - name: Translate secrets of base64 into json
         env:
           JSON_DECODE: ${{ secrets.AWS_AMPLIFY_AUTH_CONFIG }}
 
         run: |
           echo-n $JSON_DECODE | base64 --decode > ./src/src/amp-config.json
+          
+      - name: Build
+        run: |
+          cd src
+          npm run build
 
       - name: Deploy  # S3にデプロイ 
         env:
