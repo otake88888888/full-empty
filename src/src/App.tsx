@@ -6,6 +6,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import config from './amp-config.json'
+import { CognitoUserAmplify } from '@aws-amplify/ui';
 
 Amplify.configure({
   Auth: {
@@ -18,9 +19,8 @@ Amplify.configure({
 
 Auth.configure();
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-function App({ signOut, user }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function App({ signOut, user }: {signOut:any,user:CognitoUserAmplify}) {
   return (
     <div className="App">
       <header className="App-header">
