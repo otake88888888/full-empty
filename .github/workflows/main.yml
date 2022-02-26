@@ -15,7 +15,7 @@ jobs:
           cd src
           npm install
 
-      - name: Translate secrets of base64 into json
+      - name: Translate secrets of base64 into json 
         env:
           JSON_DECODE: ${{ secrets.AWS_AMPLIFY_AUTH_CONFIG }}
 
