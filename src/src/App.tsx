@@ -1,4 +1,5 @@
 
+import React from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Amplify, { Auth } from 'aws-amplify';
@@ -15,7 +16,9 @@ Amplify.configure({
   }
 });
 
-const currentConfig = Auth.configure();
+Auth.configure();
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 function App({ signOut, user }) {
   return (
