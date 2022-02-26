@@ -4,7 +4,8 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { CognitoUserAmplify } from "@aws-amplify/ui";
 
 import Header from "./Header";
-import Footer from "./Footer"
+import Footer from "./Footer";
+import Drawer from "./Drawer";
 
 import Amplify, { Auth } from "aws-amplify";
 import "@aws-amplify/ui-react/styles.css";
@@ -26,12 +27,10 @@ function App({ signOut, user }: { signOut: any; user: CognitoUserAmplify }) {
   return (
     <div className="App">
       <Header></Header>
-      <div className="App-body">
-        <h1>Hello {user.username}</h1>
-        <button onClick={signOut}>Sign out</button>
-      </div>
+      <Drawer signOut={signOut} user={ user }/>
       <Footer></Footer>
     </div>
   );
 }
 export default withAuthenticator(App, { hideSignUp: true });
+// export default App;
