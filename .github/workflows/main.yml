@@ -13,7 +13,6 @@ jobs:
       - name: Install Dependencies
         run: |
           cd src
-          npm cache clean --force
           npm install
 
       - name: Translate secrets of base64 into json 
