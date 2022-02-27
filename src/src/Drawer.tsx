@@ -16,8 +16,15 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Link } from "react-router-dom";
+
+export interface Drawer {
+  children: React.ReactNode;
+  signOut: any;
+  user: any;
+}
 
 const drawerWidth = 240;
 
@@ -86,7 +93,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer(props: { signOut: any; user: any }) {
+const MiniDrawer: React.FC<Drawer> = (
+  props,
+) => {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -115,7 +125,7 @@ export default function MiniDrawer(props: { signOut: any; user: any }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Full Empty
           </Typography>
         </Toolbar>
       </AppBar>
@@ -131,29 +141,30 @@ export default function MiniDrawer(props: { signOut: any; user: any }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/">
+            <ListItem button key={"List"}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <ListAltIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"List"} />
             </ListItem>
-          ))}
+          </Link>
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/settings">
+            <ListItem button key={"Settings"}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <SettingsIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Settings"} />
             </ListItem>
-          ))}
+          </Link>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        {props.children}
         <Typography paragraph>Hello {props.user.username}</Typography>
         <Typography paragraph>
           <button onClick={props.signOut}>Sign out</button>
@@ -161,4 +172,5 @@ export default function MiniDrawer(props: { signOut: any; user: any }) {
       </Box>
     </Box>
   );
-}
+};
+export default MiniDrawer;

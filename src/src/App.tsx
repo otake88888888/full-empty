@@ -10,6 +10,9 @@ import Drawer from "./Drawer";
 import Amplify, { Auth } from "aws-amplify";
 import "@aws-amplify/ui-react/styles.css";
 import config from "./amp-config.json";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import ListData from "./ListData";
+import Settings from "./Settings";
 
 Amplify.configure({
   Auth: {
@@ -27,7 +30,24 @@ function App({ signOut, user }: { signOut: any; user: CognitoUserAmplify }) {
   return (
     <div className="App">
       <Header></Header>
-      <Drawer signOut={signOut} user={ user }/>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Drawer signOut={signOut} user={user}>
+                <ListData></ListData>
+              </Drawer>
+            }></Route>
+          <Route
+            path="/settings"
+            element={
+              <Drawer signOut={signOut} user={user}>
+                <Settings />
+              </Drawer>
+            }></Route>
+        </Routes>
+      </BrowserRouter>
       <Footer></Footer>
     </div>
   );
