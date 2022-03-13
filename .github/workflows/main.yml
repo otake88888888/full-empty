@@ -12,7 +12,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd src
+          cd frontend-src
           npm install
 
       - name: Translate secrets of base64 into json 
@@ -20,11 +20,11 @@ jobs:
           JSON_DECODE: ${{ secrets.AWS_AMPLIFY_AUTH_CONFIG }}
 
         run: |
-          echo $JSON_DECODE | base64 --decode > ./src/src/amp-config.json
+          echo $JSON_DECODE | base64 --decode > ./frontend-src/src/amp-config.json
           
       - name: Build
         run: |
-          cd src
+          cd frontend-src
           npm run build
 
       - name: Deploy  # S3にデプロイ 
@@ -32,5 +32,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          cd src
+          cd frontend-src
           aws s3 cp --recursive --region ap-northeast-1 build s3://full-empty-bucket
